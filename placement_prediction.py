@@ -16,7 +16,7 @@ import joblib
 # 1. Load Dataset
 
 df = pd.read_csv("placementdata.csv")
-print("✅ Dataset loaded successfully! Shape:", df.shape)
+print("Dataset loaded successfully! Shape:", df.shape)
 print(df.head())
 
 # 2. Data Cleaning & Preparation
@@ -53,7 +53,7 @@ y = df["Placed"]
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42, stratify=y
 )
-print(f"\n📊 Train size: {X_train.shape}, Test size: {X_test.shape}")
+print(f"\n Train size: {X_train.shape}, Test size: {X_test.shape}")
 
 
 # 5. Preprocessing & Model Pipeline
@@ -82,14 +82,14 @@ model = Pipeline(steps=[
 # 6. Train the Model
 
 model.fit(X_train, y_train)
-print("\n✅ Model trained successfully!")
+print("\n Model trained successfully!")
 
 # 7. Evaluation
 
 y_pred = model.predict(X_test)
 y_prob = model.predict_proba(X_test)[:, 1]
 
-print("\n📈 Accuracy:", accuracy_score(y_test, y_pred))
+print("\n Accuracy:", accuracy_score(y_test, y_pred))
 print("ROC AUC Score:", roc_auc_score(y_test, y_prob))
 print("\nClassification Report:\n", classification_report(y_test, y_pred))
 
@@ -107,13 +107,13 @@ plt.show()
 # 8. Save Model
 
 joblib.dump(model, "placement_model.joblib")
-print("\n💾 Model saved as placement_model.joblib")
+print("\n Model saved as placement_model.joblib")
 
 # 9. Predict New Data from CSV
 
 try:
     students = pd.read_csv("students.csv")
-    print("\n📘 New data loaded from students.csv")
+    print("\n New data loaded from students.csv")
 
     if "Name" in students.columns:
         X_new = students.drop("Name", axis=1)
@@ -127,18 +127,18 @@ try:
     students["Predicted_Placement"] = pred
     students["Placement_Probability (%)"] = (prob * 100).round(2)
 
-    print("\n🧾 Predictions for new students:")
+    print("\n Predictions for new students:")
     print(students.head())
 
     students.to_csv("students_predictions.csv", index=False)
-    print("✅ Predictions saved as students_predictions.csv")
+    print(" Predictions saved as students_predictions.csv")
 
 except FileNotFoundError:
-    print("\n⚠️ No students.csv file found — skipping CSV prediction step.")
+    print("\n No students.csv file found — skipping CSV prediction step.")
 
 # 10. Interactive Input
 
-print("\n🎯 Interactive Placement Prediction Demo")
+print("\n Interactive Placement Prediction Demo")
 print("Enter details for a new student:\n")
 
 cgpa = float(input("Enter CGPA: "))
